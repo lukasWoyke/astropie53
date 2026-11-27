@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AstroPIE-53</title>
+  <meta name="description" content="AstroPIE-53: Towards Understanding Failure Modes of Human Pose Estimation in Space. SPAICE 2026: AI in and for Space. A pilot dataset of 53 annotated astronaut videos and a failure analysis of person detection and pose estimation in space.">
+  <meta property="og:title" content="AstroPIE-53: Towards Understanding Failure Modes of Human Pose Estimation in Space">
+  <meta property="og:description" content="A pilot dataset of 53 annotated astronaut videos and the first systematic failure analysis for astronaut monitoring.">
+  <link rel="icon" href="assets/img/icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="config.js" defer></script>
+  <script src="assets/main.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="title-block">
+      <h1>AstroPIE-53: Towards Understanding Failure Modes of Human Pose Estimation in Space</h1>
+      <p class="authors" id="authors">Stephanie Käs, Marten Flaig, Lukas Woyke, Osmanalp Ömeroğlu, Felix Krueckel, Onur Alp Çulha, Bastian Leibe</p>
+      <p class="affil">Computer Vision Group, RWTH Aachen University, Germany</p>
+      <p class="venue">SPAICE 2026: AI in and for Space</p>
+      <p class="venue-detail">ESA ESTEC, Noordwijk, The Netherlands · 21–23 October 2026</p>
+    </header>
+
+    <nav class="buttons" aria-label="Paper resources">
+      <a class="pill" data-link="pdfUrl">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4M9 13h6M9 17h6"/></svg>Paper
+      </a>
+      <a class="pill" data-link="arxivUrl">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19L19 5M8 5h11v11"/></svg>arXiv
+      </a>
+      <a class="pill" data-link="codeUrl">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Code
+      </a>
+      <a class="pill" data-link="app">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v12H3zM8 21h8M12 17v4"/></svg>Annotation App
+      </a>
+      <a class="pill" data-link="dataUrl">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Data
+      </a>
+      <a class="pill" href="#bibtex">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>BibTeX
+      </a>
+    </nav>
+
+    <figure class="teaser" id="teaser">
+      <div class="classes">
+        <figure><img src="assets/img/cls/1_suit.jpg" alt="" width="480" height="382"><figcaption>Suit</figcaption></figure>
+        <figure><img src="assets/img/cls/1_no_suit.jpg" alt="" width="480" height="417"><figcaption>No suit</figcaption></figure>
+        <figure><img src="assets/img/cls/3_inside.jpg" alt="" width="480" height="426"><figcaption>Indoor</figcaption></figure>
+        <figure><img src="assets/img/cls/3_outdoor.jpg" alt="" width="480" height="270"><figcaption>Outdoor</figcaption></figure>
+        <figure><img src="assets/img/cls/2_front.jpg" alt="" width="480" height="424"><figcaption>Front</figcaption></figure>
+        <figure><img src="assets/img/cls/2_back.jpg" alt="" width="480" height="459"><figcaption>Back</figcaption></figure>
+        <figure><img src="assets/img/cls/2_side.jpg" alt="" width="480" height="454"><figcaption>Side</figcaption></figure>
+        <figure><img src="assets/img/cls/2_multi.jpg" alt="" width="480" height="433"><figcaption>Multi</figcaption></figure>
+        <figure><img src="assets/img/cls/3_contrast.jpg" alt="" width="480" height="472"><figcaption>High contrast</figcaption></figure>
+        <figure><img src="assets/img/cls/3_no_contrast.jpg" alt="" width="480" height="454"><figcaption>Low contrast</figcaption></figure>
+        <figure><img src="assets/img/cls/4_close.jpg" alt="" width="480" height="386"><figcaption>Close</figcaption></figure>
+        <figure><img src="assets/img/cls/4_far.jpg" alt="" width="480" height="473"><figcaption>Far</figcaption></figure>
+        <figure><img src="assets/img/cls/5_occluded.jpg" alt="" width="480" height="456"><figcaption>Occluded</figcaption></figure>
+        <figure><img src="assets/img/cls/5_not_occluded.jpg" alt="" width="480" height="460"><figcaption>Non-occluded</figcaption></figure>
+      </div>
+      <figcaption class="caption">AstroPIE-53 covers 14 challenge labels in six challenge classes: spacesuit presence, person–camera orientation,
+        environment, contrast, camera distance and occlusion.</figcaption>
+    </figure>
+
+    <section class="abstract">
+      <h2>Abstract</h2>
+      <p>Reliable monitoring of astronauts is essential for safety, situational awareness, and autonomous assistance in space missions.
+        While modern computer vision enables accurate human detection and pose estimation on Earth, its robustness in space environments
+        remains largely unquantified due to limited data availability. We present AstroPIE-53, a pilot dataset of 53 annotated astronaut
+        videos collected from publicly available mission footage. To respect copyright restrictions, we release video identifiers,
+        reconstruction scripts, and dense annotations rather than raw videos. The dataset includes bounding boxes, challenge classes, and
+        human-annotated pose failure tags. We benchmark state-of-the-art person detection and pose estimation models under realistic
+        zero-shot deployment conditions and perform the first systematic failure analysis for astronaut monitoring. Our results reveal
+        substantial performance degradation caused by occlusions, unusual body orientations, low contrast, and microgravity motion patterns.</p>
+    </section>
+
+    <section>
+      <h2>Dataset</h2>
+      <p>We collected 53 videos from publicly available astronaut recordings published by space agencies, covering intra- and
+        extra-vehicular activities such as maintenance tasks, tours and mission operations. A semi-automated pipeline searches for
+        candidate videos, synchronises them with a metadata repository, and prepares them for annotation. We manually annotated
+        bounding boxes on 20.5k frames, challenge classes per video, and pose failure tags per astronaut track.</p>
+      <figure class="fig light">
+        <img src="assets/img/fig/pipeline.png" alt="Three-stage pipeline: 1. Search, 2. Sync, 3. Annotate" loading="lazy" width="1400" height="544">
+      </figure>
+      <p class="caption">Three-stage data pipeline: metadata-driven video search, filtering and synchronisation of relevant recordings,
+        and frame extraction and annotation.</p>
+
+      <div class="table-scroll">
+        <table class="wide">
+          <thead>
+            <tr><th scope="col"></th><th scope="colgroup" colspan="2">Spacesuit</th><th scope="colgroup" colspan="4">Orientation</th><th scope="colgroup" colspan="2">Env.</th><th scope="colgroup" colspan="2">Contrast</th><th scope="colgroup" colspan="2">Distance</th><th scope="colgroup" colspan="2">Occlusion</th></tr>
+            <tr class="sub"><th scope="col"></th><th>Suit</th><th>No-suit</th><th>Front</th><th>Back</th><th>Side</th><th>Multi</th><th>Ind.</th><th>Out.</th><th>High</th><th>Low</th><th>Close</th><th>Far</th><th>Occ.</th><th>Non-occ.</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Videos</th><td>43</td><td>10</td><td>7</td><td>3</td><td>25</td><td>18</td><td>15</td><td>38</td><td>20</td><td>18</td><td>46</td><td>7</td><td>9</td><td>44</td></tr>
+            <tr><th scope="row">Frames [%]</th><td>86.0</td><td>14.0</td><td>8.4</td><td>7.0</td><td>34.6</td><td>50.0</td><td>21.0</td><td>79.0</td><td>39.3</td><td>60.7</td><td>68.8</td><td>31.2</td><td>17.1</td><td>82.9</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">Statistics of AstroPIE-53 across the 14 challenge label subsets.</p>
+    </section>
+
+    <section>
+      <h2>Astronaut detection</h2>
+      <p>We evaluate Grounding DINO, RF-DETR and YOLO26 without retraining. Detection is substantially better without spacesuits and
+        from frontal views. Back views, low contrast and large camera distances cause the strongest drops. Grounding DINO clearly
+        outperforms the other two detectors, which detect almost nothing outdoors, at low contrast or at far distances.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">AP@50 [%]</th><th scope="col">DINO<br><span class="muted">(astronaut)</span></th><th scope="col">DINO<br><span class="muted">(person)</span></th><th scope="col">RF-DETR</th><th scope="col">YOLO26</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Suit</th><td>46.03</td><td>46.88</td><td>16.78</td><td>14.85</td></tr>
+            <tr><th scope="row">No-suit</th><td>86.90</td><td>86.87</td><td>85.76</td><td>84.40</td></tr>
+            <tr class="group"><th scope="row">Front</th><td>94.91</td><td>94.57</td><td>86.15</td><td>86.22</td></tr>
+            <tr><th scope="row">Back</th><td>13.62</td><td>24.64</td><td>6.52</td><td>2.18</td></tr>
+            <tr><th scope="row">Side</th><td>76.24</td><td>73.93</td><td>30.17</td><td>23.53</td></tr>
+            <tr><th scope="row">Multi</th><td>31.91</td><td>33.45</td><td>14.81</td><td>16.30</td></tr>
+            <tr class="group"><th scope="row">Indoor</th><td>81.00</td><td>85.92</td><td>80.80</td><td>80.99</td></tr>
+            <tr><th scope="row">Outdoor</th><td>43.66</td><td>43.37</td><td>11.70</td><td>9.34</td></tr>
+            <tr class="group"><th scope="row">High contrast</th><td>73.96</td><td>68.94</td><td>22.66</td><td>18.40</td></tr>
+            <tr><th scope="row">Low contrast</th><td>24.05</td><td>26.82</td><td>4.61</td><td>3.48</td></tr>
+            <tr class="group"><th scope="row">Close</th><td>66.67</td><td>65.96</td><td>37.46</td><td>34.45</td></tr>
+            <tr><th scope="row">Far</th><td>18.42</td><td>22.21</td><td>0.23</td><td>0.83</td></tr>
+            <tr class="group"><th scope="row">Occluded</th><td>52.15</td><td>52.76</td><td>27.87</td><td>25.70</td></tr>
+            <tr><th scope="row">Non-occluded</th><td>46.66</td><td>47.99</td><td>14.00</td><td>13.72</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">AP@50 per challenge category (τ<sub>conf</sub> = 0.3, τ<sub>IoU</sub> = 0.5). Categories overlap and are
+        imbalanced, so the numbers show associations, not isolated effects.</p>
+      <figure class="fig light">
+        <img src="assets/img/fig/pr.jpg" alt="Precision–recall curves and F1 score versus confidence threshold for YOLO26, RF-DETR and Grounding DINO" loading="lazy" width="1600" height="1068">
+      </figure>
+      <p class="caption">Precision–recall curves (top) and F1 score versus confidence threshold (bottom) at IoU 0.5 and 0.75. The best
+        trade-off lies around τ<sub>conf</sub> = 0.3 and τ<sub>IoU</sub> = 0.5.</p>
+    </section>
+
+    <section>
+      <h2>Pose failure analysis</h2>
+      <p>Real mission footage has no ground-truth poses, so we label the predictions of MeTRAbs, NLF and ViTPose with failure
+        categories per astronaut track, using our ground-truth boxes to separate pose errors from detection errors. Fully misaligned
+        poses are the dominant failure, likely caused by unusual body orientations in microgravity. No pose estimator is best across all
+        failure modes.</p>
+      <div class="fig-pair">
+        <figure><img src="assets/img/fig/fail_metrabs.jpg" alt="MeTRAbs skeleton completely misaligned with the astronaut" loading="lazy" width="702" height="442"><figcaption>MeTRAbs: fully misaligned</figcaption></figure>
+        <figure><img src="assets/img/fig/fail_nlf.jpg" alt="NLF prediction with misaligned legs" loading="lazy" width="900" height="445"><figcaption>NLF: misaligned legs</figcaption></figure>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Failure type [%]</th><th scope="col">MeTRAbs</th><th scope="col">NLF</th><th scope="col">ViTPose</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Misaligned head</th><td>3.9</td><td>–</td><td>–</td></tr>
+            <tr><th scope="row">Misaligned torso</th><td>0.9</td><td>0.1</td><td>–</td></tr>
+            <tr><th scope="row">Misaligned arms</th><td>1.3</td><td>4.6</td><td>0.1</td></tr>
+            <tr><th scope="row">Misaligned legs</th><td>8.5</td><td>7.9</td><td>1.5</td></tr>
+            <tr><th scope="row">Scale</th><td>–</td><td>3.4</td><td>–</td></tr>
+            <tr><th scope="row">Global orientation</th><td>1.8</td><td>3.8</td><td>0.3</td></tr>
+            <tr><th scope="row">All misaligned</th><td>43.3</td><td>30.9</td><td>57.2</td></tr>
+            <tr><th scope="row">Jitter</th><td>4.9</td><td>1.9</td><td>9.8</td></tr>
+            <tr><th scope="row">Shadowing</th><td>1.0</td><td>–</td><td>1.5</td></tr>
+            <tr class="group"><th scope="row">Correct estimations</th><td>55.4</td><td><strong>69.8</strong></td><td>48.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">Share of the 19,912 annotated bounding-box keyframes with each failure type. A keyframe can have several
+        failure types, so the columns do not add up to 100%.</p>
+    </section>
+
+    <section>
+      <h2>Annotation application</h2>
+      <p>All labels were created with our desktop annotation application for bounding-box tracks, keypoints and failure tags. It runs
+        offline on Linux, macOS and Windows.</p>
+      <figure class="fig">
+        <img src="assets/img/fig/gui.jpg" alt="The annotation application with a bounding box drawn around an astronaut" loading="lazy" width="1600" height="903">
+      </figure>
+    </section>
+
+    <section id="bibtex">
+      <div class="bib-head">
+        <h2>BibTeX</h2>
+        <button type="button" class="copy" id="copy-bib">Copy</button>
+      </div>
+      <pre><code id="bib">@inproceedings{kaes2026astropie53,
+  title         = {{AstroPIE-53}: Towards Understanding Failure Modes
+                   of Human Pose Estimation in Space},
+  author        = {K{\"a}s, Stephanie and Flaig, Marten and Woyke, Lukas and
+                   {\"O}mero{\u{g}}lu, Osmanalp and Krueckel, Felix and
+                   {\c{C}}ulha, Onur Alp and Leibe, Bastian},
+  booktitle     = {SPAICE 2026: AI in and for Space},
+  address       = {Noordwijk, The Netherlands},
+  publisher     = {European Space Agency},
+  year          = {2026},
+  eprint        = {2611.20207},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV}
+}</code></pre>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul class="contacts" id="contacts"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Computer Vision Group, RWTH Aachen University</span>
+    <span><a href="legal.html#imprint">Imprint</a> · <a href="legal.html#privacy">Privacy</a></span>
+  </footer>
+</body>
+</html>
