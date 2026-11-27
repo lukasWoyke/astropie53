@@ -147,3 +147,4 @@ code { font-family: var(--mono); font-size: 0.82rem; line-height: 1.6; }
   table { font-size: 0.85rem; }
   th, td { padding: 6px 6px; }
 }
+.venue abbr { text-decoration: none; cursor: help; }

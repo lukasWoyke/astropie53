@@ -5,7 +5,7 @@ window.SITE_CONFIG = {
   // Buttons below the title
   pdfUrl: "https://arxiv.org/pdf/2611.20207",
   arxivUrl: "https://arxiv.org/abs/2611.20207",
-  codeUrl: "",   // e.g. "https://github.com/lukasWoyke/astropie-53-code"
+  codeUrl: "",   // e.g. "https://github.com/lukasWoyke/astropie53-code"
   dataUrl: "",   // later: video identifiers, reconstruction scripts, annotations
 
   // Authors in paper order. "url" (homepage) and "email" are optional.
@@ -26,7 +26,7 @@ window.SITE_CONFIG = {
 
   // Application downloads.
   // Set releaseUrl once the GitHub Release exists, for example:
-  //   "https://github.com/lukasWoyke/astropie-53/releases/download/v1.0.0"
+  //   "https://github.com/lukasWoyke/astropie53/releases/download/v1.0.0"
   // The "Application" button stays on "Coming soon" until then.
   releaseUrl: "",
   version: "1.0.0",
